@@ -1,23 +1,15 @@
-name: dsci522-milestone2
+name: 522-dockerlock
 channels:
-  - conda-forge
-  - defaults
+- conda-forge
 dependencies:
-  - python>=3.11
-  - pip
-  - ipykernel
-  - nb_conda_kernels
-  - altair-all=5.4.*
-  - vega_datasets
-  - scipy
-  - matplotlib>=3.2.2
-  - scikit-learn
-  - requests>=2.24.0
-  - eli5
-  - jinja2
-  - pandas
-  - numpy
-  - rich
-  - conda-lock
-  - pip:
-    - altair_ally>=0.1.1
+- altair
+- conda-lock=>3.0.4
+- jupyterlab=4.5.0
+- pandas=2.3.3
+- pandera
+- pip
+- pointblank
+- python>=3.11
+- pip:
+  - deepchecks
+  - vegafusion

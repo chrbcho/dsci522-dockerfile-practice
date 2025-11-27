@@ -1,29 +1,7 @@
-# use the miniforge base, make sure you specify a verion
-FROM condaforge/miniforge3:latest
+FROM quay.io/jupyter/minimal-notebook:afe30f0c9ad8
 
-# copy the lockfile into the container
-COPY conda-lock.yml conda-lock.yml
+COPY conda-linux-64.lock /tmp/conda-linux-64.lock
 
-# setup conda-lock
-RUN conda install -n base -c conda-forge conda-lock -y
-
-# install packages from lockfile into dockerlock environment
-RUN conda-lock install -n 522-dockerlock conda-lock.yml
-
-# make dockerlock the default environment
-RUN echo "source /opt/conda/etc/profile.d/conda.sh && conda activate 522-dockerlock" >> ~/.bashrc
-
-# set the default shell to use bash with login to pick up bashrc
-# this ensures that we are starting from an activated dockerlock environment
-SHELL ["/bin/bash", "-l", "-c"]
-
-# expose JupyterLab port
-EXPOSE 8888
-
-# sets the default working directory
-# this is also specified in the compose file
-WORKDIR /workplace
-
-# run JupyterLab on container start
-# uses the jupyterlab from the install environment
-CMD ["conda", "run", "--no-capture-output", "-n", "522-dockerlock", "jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--IdentityProvider.token=''", "--ServerApp.password=''"]
+RUN conda update --quiet --file /tmp/conda-linux-64.lock \
+    && fix-permissions "${CONDA_DIR}" \
+    && fix-permissions "/home/${NB_USER}"

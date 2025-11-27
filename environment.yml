@@ -1,15 +1,8 @@
-name: 522-dockerlock
+name: docker_env
 channels:
-- conda-forge
+  - conda-forge
 dependencies:
-- altair
-- conda-lock=>3.0.4
-- jupyterlab=4.5.0
-- pandas=2.3.3
-- pandera
-- pip
-- pointblank
-- python>=3.11
-- pip:
-  - deepchecks
-  - vegafusion
+  - python=3.12
+  - jupyterlab=4.5
+  - numpy=2.3
+  - pandas=2.3
